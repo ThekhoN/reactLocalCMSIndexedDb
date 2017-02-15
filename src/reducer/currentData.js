@@ -1,12 +1,20 @@
-const currentData = (state={key: '',name:'', age: ''}, action) => {
+const currentData = (state={}, action) => {
   switch (action.type) {
     case 'UPDATE_CURRENT_DATA':
-      const {key, name, age} = action
-      return {
-        key,
-        name,
-        age
+      if(!action.name && !action.age){
+          return {
+            key: action.key
+          }
       }
+      else {
+        const {key, name, age} = action
+        return {
+          key,
+          name,
+          age
+        }
+      }
+
     default:
       return state
   }

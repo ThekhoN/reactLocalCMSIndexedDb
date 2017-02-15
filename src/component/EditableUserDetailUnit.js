@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import store from '../store'
 
 class EditableUserDetailUnit extends Component {
   constructor(props){
@@ -18,12 +19,22 @@ class EditableUserDetailUnit extends Component {
         editable: false,
         name: this.nameEditInput.value,
       }, function(){
-        this.props.dispatchEditToMain(this.state.name, key)
+        //this.props.dispatchEditToMain(key, name)//only dispatch key for mapping
+        store.dispatch({
+          type: 'EDIT_STORED_DATA',
+          key: store.getState().currentData.key,
+          name: this.state.name
+        })
       })
     }
     else {
       this.setState({
         editable: true
+      }, function(){
+        store.dispatch({
+          type:'UPDATE_CURRENT_DATA',
+          key
+        })
       })
     }
   }

@@ -6,6 +6,9 @@ db.version(1).stores({
   user: 'key, name, age',
 })
 
+//hard delete indexedDb
+//db.user.clear()
+
 export const updateStoreAtInit = (db, store, callback) => {
   const Promise = Dexie.Promise;
   let data = []

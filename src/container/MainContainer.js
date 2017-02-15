@@ -50,8 +50,13 @@ class MainContainer extends Component {
     })
 
   }
-  handleDispatchEditToMain(name, key){
-    console.log('dispatched value: ', name, key)
+  handleDispatchEditToMain(key){
+    console.log('dispatched value: ', key)
+    store.dispatch({
+      type: 'UPDATE_CURRENT_DATA',
+      key
+    })
+    /*
     const currentStoredData = this.state.storedData
     console.log('currentStoredData: ', currentStoredData)
     const updatedData = updateState(name, key, currentStoredData)
@@ -61,6 +66,7 @@ class MainContainer extends Component {
     }, function(){
       console.info('updated state on dispatch: ', this.state)
     })
+    */
   }
   componentDidMount(){
     //init db query & update store
