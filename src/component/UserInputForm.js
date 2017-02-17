@@ -7,9 +7,6 @@ class UserInputForm extends Component {
       this.validateDate = this.validateDate.bind(this)
     }
   handleSubmit(data){
-    //storeInIndexedDb(data)
-    //console.info('successfully stored in db. . .: ', data)
-
     this.props.onSubmitInputToMain(data)
   }
   validateDate(data){
@@ -26,16 +23,16 @@ class UserInputForm extends Component {
       return false
     }
     else {
-      //console.info('we are good to go. . .')
       return true
     }
   }
     render(){
       return (<div className='formContainer'>
+        <h2>User Input: </h2>
+        <br/>
                 <form onSubmit={
                     (e)=>{
                       e.preventDefault()
-                      console.log('running handleSubmit. . .')
                       const data = {
                         name: this.nameInput.value,
                         age: this.ageInput.value,

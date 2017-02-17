@@ -15,6 +15,11 @@ ul {
 .formContainer {
   padding: 2em;
 }
+
+.formContainer h2 {
+  padding-left: 0
+}
+
 .formContainer p {
   margin-bottom: 1em;
 }
@@ -26,7 +31,7 @@ input {
 }
 
 .userDetailsWrapper {
-  width: 50%;
+  width: 33.33%;
   float: left;
   overflow: hidden;
   box-sizing: border-box;

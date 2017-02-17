@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import store from '../store'
 
 class EditableUserDetailUnit extends Component {
   constructor(props){
@@ -7,62 +6,58 @@ class EditableUserDetailUnit extends Component {
     this.state = {
       key: this.props.data.key,
       name: this.props.data.name,
+      age: this.props.data.age,
       editable: false
     }
     this.handleEdit = this.handleEdit.bind(this)
   }
   handleEdit(key){
     console.log('handlingEdit for ', key)
-    const {editable, value} = this.state
+    const {editable} = this.state
     if(editable){
       this.setState({
         editable: false,
         name: this.nameEditInput.value,
+        age: this.ageEditInput.value,
       }, function(){
-        //this.props.dispatchEditToMain(key, name)//only dispatch key for mapping
-        store.dispatch({
-          type: 'EDIT_STORED_DATA',
-          key: store.getState().currentData.key,
-          name: this.state.name
-        })
+          const {name, age} = this.state
+          //console.log('dispatchOnHandleEditTrue: ', this.props.dispatchOnHandleEditTrue);
+          console.info('dispatch name, age: ', name, age)
+          this.props.dispatchOnHandleEditTrue(this.props.currentDataFromStore.key, name, age)
       })
     }
     else {
       this.setState({
         editable: true
       }, function(){
-        store.dispatch({
-          type:'UPDATE_CURRENT_DATA',
-          key
-        })
+          this.props.dispatchOnHandleEditFalse(key, null, null)
       })
     }
   }
   render(){
    const {name, age, editable, key} = this.state
-   return (<li key={key} onBlur={
-         (e)=>{
-           //console.log('on bluring the li. . .')
-            //console.info('e.target :', e.target)
-           //this.handleBlur(key)
-         }
-       }>
+   return (<li key={key} >
        <div className='editableUserDetailUnit'>
       <div className='userDetailsWrapper nameContainer'>
         {editable && <input
-                       onChange={(e)=>{
-                        }}
                        ref={node=>{this.nameEditInput=node}}
                        className='editable'
+                       placeholder='Name'
                        type='text'
                        defaultValue={name}/>}
         {!editable && <span className='editable'>{name}</span>}
       </div>
+      <div className='userDetailsWrapper ageContainer'>
+        {editable && <input
+                       ref={node=>{this.ageEditInput=node}}
+                       className='editable'
+                       placeholder='Age'
+                       type='text'
+                       defaultValue={age}/>}
+        {!editable && <span className='editable'>{age}</span>}
+      </div>
       <div className='userDetailsWrapper editContainer'>
-        <button onBlur={()=>{
-            //this.handleBlur(key)
-          }}
-
+        <button
           onClick={()=>{
             this.handleEdit(key)
           }}>
